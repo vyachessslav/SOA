@@ -1,6 +1,6 @@
 package com.vezhur.soa.controller;
 
-import com.vezhur.soa.DTO.LabworkData;
+import com.vezhur.soa.DTO.LabworkDetails;
 import com.vezhur.soa.service.LabworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +13,13 @@ public class LabworkController {
     @Autowired
     private LabworkService labworkService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<String> getLabworks() {
         return ResponseEntity.ok("OK");
     }
 
-    @PostMapping("")
-    public ResponseEntity<LabworkData> CreateLabwork(@RequestBody LabworkData labwork) {
+    @PostMapping
+    public ResponseEntity<LabworkDetails> createLabwork(@RequestBody LabworkDetails labwork) {
         return ResponseEntity.ok(labworkService.createLabwork(labwork));
     }
 

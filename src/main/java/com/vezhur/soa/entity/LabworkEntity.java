@@ -1,6 +1,9 @@
 package com.vezhur.soa.entity;
 
-import com.vezhur.soa.DTO.LabworkData;
+import com.vezhur.soa.DTO.Coordinates;
+import com.vezhur.soa.DTO.LabworkDetails;
+import com.vezhur.soa.DTO.Person;
+import com.vezhur.soa.enums.Difficulty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -17,9 +20,9 @@ import java.util.Date;
 @ToString
 @RequiredArgsConstructor
 public class LabworkEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @CreationTimestamp
@@ -29,17 +32,37 @@ public class LabworkEntity {
     @Column(nullable = false)
     private String name;
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "x", column = @Column(name = "coordinate_x")),
+            @AttributeOverride(name = "y", column = @Column(name = "coordinate_y"))
+    })
+    private Coordinates coordinates;
+
     @Column(nullable = false)
     private Float minimalPoint;
 
-    @Column()
-    private String difficulty;
+    @Enumerated(EnumType.STRING)
+    private Difficulty difficulty;
 
-    static public LabworkEntity createLabworkEntity(LabworkData labworkData) {
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "name", column = @Column(name = "author_name")),
+            @AttributeOverride(name = "birthday", column = @Column(name = "author_birthday")),
+            @AttributeOverride(name = "weight", column = @Column(name = "author_weight")),
+            @AttributeOverride(name = "location.x", column = @Column(name = "author_location_x")),
+            @AttributeOverride(name = "location.y", column = @Column(name = "author_location_y")),
+            @AttributeOverride(name = "location.name", column = @Column(name = "author_location_name"))
+    })
+    private Person author;
+
+    static public LabworkEntity createLabworkEntity(LabworkDetails labworkDetails) {
         LabworkEntity labworkEntity = new LabworkEntity();
-        labworkEntity.setName(labworkData.getName());
-        labworkEntity.setMinimalPoint(labworkData.getMinimalPoint());
-        labworkEntity.setDifficulty(labworkData.getDifficulty());
+        labworkEntity.setName(labworkDetails.getName());
+        labworkEntity.setMinimalPoint(labworkDetails.getMinimalPoint());
+        labworkEntity.setDifficulty(labworkDetails.getDifficulty());
+        labworkEntity.setCoordinates(labworkDetails.getCoordinates());
+        labworkEntity.setAuthor(labworkDetails.getAuthor());
         return labworkEntity;
     }
 }
