@@ -74,4 +74,12 @@ public class LabworkService {
         labworkRepository.deleteById(id);
     }
 
+    public Float getMinimalPointSum() {
+        try {
+            return labworkRepository.minimalPointSum();
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("Лабораторные работы не найдены");
+        }
+    }
+
 }

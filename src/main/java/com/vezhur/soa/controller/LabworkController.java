@@ -53,8 +53,8 @@ public class LabworkController {
     }
 
     @GetMapping("/minimal-point/sum")
-    public ResponseEntity<String> getMinimalPointSum() {
-        return ResponseEntity.ok("OK");
+    public ResponseEntity<Float> getMinimalPointSum() {
+        return ResponseEntity.ok(labworkService.getMinimalPointSum());
     }
 
     @GetMapping("/difficulty/min")
