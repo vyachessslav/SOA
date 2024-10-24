@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,7 +85,9 @@ public class LabworkService {
 
     public LabworkEntity getEasiestLabwork() {
         try {
-            return labworkRepository.getEasiestLabworks().get(0);
+            List<LabworkEntity> labworks = labworkRepository.findAll();
+            labworks.sort(Comparator.comparing(lab -> lab.getDifficulty().getValue()));
+            return labworks.get(0);
         } catch (Exception ex) {
             throw new ResourceNotFoundException("Лабораторные работы не найдены");
         }
