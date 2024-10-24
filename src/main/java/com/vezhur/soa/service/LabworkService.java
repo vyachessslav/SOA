@@ -76,7 +76,23 @@ public class LabworkService {
 
     public Float getMinimalPointSum() {
         try {
-            return labworkRepository.minimalPointSum();
+            return labworkRepository.getMinimalPointSum();
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("Лабораторные работы не найдены");
+        }
+    }
+
+    public LabworkEntity getEasiestLabwork() {
+        try {
+            return labworkRepository.getEasiestLabworks().get(0);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("Лабораторные работы не найдены");
+        }
+    }
+
+    public Integer countAllByAuthorName(String authorName) {
+        try {
+            return labworkRepository.countAllByAuthor_Name(authorName);
         } catch (Exception ex) {
             throw new ResourceNotFoundException("Лабораторные работы не найдены");
         }

@@ -58,12 +58,12 @@ public class LabworkController {
     }
 
     @GetMapping("/difficulty/min")
-    public ResponseEntity<String> getEasiestLabwork() {
-        return ResponseEntity.ok("OK");
+    public ResponseEntity<LabworkEntity> getEasiestLabwork() {
+        return ResponseEntity.ok(labworkService.getEasiestLabwork());
     }
 
-    @GetMapping("/author/count")
-    public ResponseEntity<String> getLabworksCountByAuthor() {
-        return ResponseEntity.ok("OK");
+    @GetMapping("/{author}/count")
+    public ResponseEntity<Integer> getLabworksCountByAuthor(@PathVariable("author") String authorName) {
+        return ResponseEntity.ok(labworkService.countAllByAuthorName(authorName));
     }
 }
