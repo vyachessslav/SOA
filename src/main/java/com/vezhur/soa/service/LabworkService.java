@@ -51,4 +51,20 @@ public class LabworkService {
             throw new BadRequestException("Некорректные данные для добавления лабораторной работы");
         }
     }
+
+    public LabworkEntity updateLabwork(Integer id, LabworkDetails labworkDetails) {
+        Optional<LabworkEntity> labworkEntity;
+        try {
+            labworkEntity = labworkRepository.findById(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("Лабораторная работа не найдена");
+        }
+        try {
+            return labworkRepository.save(new LabworkEntity(labworkDetails, id, labworkEntity.get().getCreationDate()));
+        }
+        catch (Exception ex) {
+            throw new BadRequestException("Некорректные данные для добавления лабораторной работы");
+        }
+    }
+
 }

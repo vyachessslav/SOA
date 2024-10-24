@@ -56,6 +56,16 @@ public class LabworkEntity {
     })
     private Person author;
 
+    public LabworkEntity(LabworkDetails labworkDetails, Integer id, Date creationDate) {
+        this.id = id;
+        this.creationDate = creationDate;
+        this.author = labworkDetails.getAuthor();
+        this.name = labworkDetails.getName();
+        this.difficulty = labworkDetails.getDifficulty();
+        this.coordinates = labworkDetails.getCoordinates();
+        this.minimalPoint = labworkDetails.getMinimalPoint();
+    }
+
     static public LabworkEntity createLabworkEntity(LabworkDetails labworkDetails) {
         LabworkEntity labworkEntity = new LabworkEntity();
         labworkEntity.setName(labworkDetails.getName());

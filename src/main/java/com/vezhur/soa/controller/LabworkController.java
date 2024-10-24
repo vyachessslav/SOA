@@ -25,7 +25,9 @@ public class LabworkController {
             @RequestParam(required = false) String filter,
             @RequestParam(required = false) Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize) {
-        // Add logic for filtering, sorting, and pagination
+
+        //TODO:Add logic for filtering, sorting, and pagination
+
         return ResponseEntity.ok(labworkService.getAllLabworks());
     }
 
@@ -40,8 +42,8 @@ public class LabworkController {
     }
 
     @PutMapping("/{labwork-id}")
-    public ResponseEntity<String> updateLabwork(@PathVariable("labwork-id") Long id) {
-        return ResponseEntity.ok("OK");
+    public ResponseEntity<LabworkEntity> updateLabwork(@PathVariable("labwork-id") Integer id, @RequestBody LabworkDetails labwork) {
+        return ResponseEntity.ok(labworkService.updateLabwork(id, labwork));
     }
 
     @DeleteMapping("/{labwork-id}")
