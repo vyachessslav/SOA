@@ -67,4 +67,11 @@ public class LabworkService {
         }
     }
 
+    public void deleteLabwork(Integer id) {
+        if (!labworkRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Лабораторная работа не найдена");
+        }
+        labworkRepository.deleteById(id);
+    }
+
 }

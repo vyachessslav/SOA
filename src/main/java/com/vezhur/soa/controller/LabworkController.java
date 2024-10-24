@@ -47,8 +47,9 @@ public class LabworkController {
     }
 
     @DeleteMapping("/{labwork-id}")
-    public ResponseEntity<String> deleteLabwork(@PathVariable("labwork-id") Long id) {
-        return ResponseEntity.ok("OK");
+    public ResponseEntity<Void> deleteLabwork(@PathVariable("labwork-id") Integer id) {
+        labworkService.deleteLabwork(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/minimal-point/sum")
