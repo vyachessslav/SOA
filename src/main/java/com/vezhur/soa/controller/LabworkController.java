@@ -1,10 +1,16 @@
 package com.vezhur.soa.controller;
 
 import com.vezhur.soa.DTO.LabworkDetails;
+import com.vezhur.soa.entity.LabworkEntity;
+import com.vezhur.soa.exception.BadRequestException;
+import com.vezhur.soa.exception.ResourceNotFoundException;
 import com.vezhur.soa.service.LabworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("${api.endpoints.base-url}/labworks")
@@ -14,8 +20,13 @@ public class LabworkController {
     private LabworkService labworkService;
 
     @GetMapping
-    public ResponseEntity<String> getLabworks() {
-        return ResponseEntity.ok("OK");
+    public ResponseEntity<List<LabworkDetails>> getAllLabworks(
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) String filter,
+            @RequestParam(required = false) Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
+        // Add logic for filtering, sorting, and pagination
+        return ResponseEntity.ok(labworkService.getAllLabworks());
     }
 
     @PostMapping
@@ -24,8 +35,8 @@ public class LabworkController {
     }
 
     @GetMapping("/{labwork-id}")
-    public ResponseEntity<String> getLabworkById(@PathVariable("labwork-id") Long id) {
-        return ResponseEntity.ok("OK");
+    public ResponseEntity<LabworkDetails> getLabWorkById(@PathVariable("labwork-id") Integer id) {
+        return ResponseEntity.ok(labworkService.getLabWorkById(id));
     }
 
     @PutMapping("/{labwork-id}")

@@ -23,7 +23,7 @@ public class LabworkEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @CreationTimestamp
     @Column(nullable = false)
