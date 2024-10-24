@@ -4,8 +4,15 @@ import com.vezhur.soa.DTO.LabworkDetails;
 import com.vezhur.soa.entity.LabworkEntity;
 import com.vezhur.soa.exception.BadRequestException;
 import com.vezhur.soa.exception.ResourceNotFoundException;
+import com.vezhur.soa.parser.FilterSpecification;
+import com.vezhur.soa.parser.SortingParser;
 import com.vezhur.soa.repository.LabworkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,10 +26,17 @@ public class LabworkService {
     @Autowired
     private LabworkRepository labworkRepository;
 
-    public List<LabworkDetails> getAllLabworks() {
+    public List<LabworkDetails> getAllLabworks(String sort, String filter, int pageNumber, int pageSize) {
         try {
+            SortingParser sortingParser = new SortingParser();
+            FilterSpecification filterSpecification = new FilterSpecification();
+            Sort sorting = sortingParser.parseSort(sort);
+            Pageable pageable = PageRequest.of(pageNumber, pageSize, sorting);
+            Specification<LabworkEntity> exampleFilter = filterSpecification.parseFilter(filter);
+
             List<LabworkDetails> labworkDetailsArrayList = new ArrayList<>();
-            labworkRepository.findAll().forEach(it -> labworkDetailsArrayList.add(new LabworkDetails(it)));
+            labworkRepository.findAll(exampleFilter, pageable).forEach(it ->
+                    labworkDetailsArrayList.add(new LabworkDetails(it)));
             return labworkDetailsArrayList;
         } catch (Exception ex) {
             throw new BadRequestException("Лабораторные работы не найдены");

@@ -25,10 +25,7 @@ public class LabworkController {
             @RequestParam(required = false) String filter,
             @RequestParam(required = false) Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize) {
-
-        //TODO:Add logic for filtering, sorting, and pagination
-
-        return ResponseEntity.ok(labworkService.getAllLabworks());
+        return ResponseEntity.ok(labworkService.getAllLabworks(sort, filter, pageNumber, pageSize));
     }
 
     @PostMapping
