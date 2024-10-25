@@ -32,10 +32,10 @@ public class LabworkService {
             FilterSpecification filterSpecification = new FilterSpecification();
             Sort sorting = sortingParser.parseSort(sort);
             Pageable pageable = PageRequest.of(pageNumber, pageSize, sorting);
-            Specification<LabworkEntity> exampleFilter = filterSpecification.parseFilter(filter);
+            Specification<LabworkEntity> specification = filterSpecification.parseFilter(filter);
 
             List<LabworkDetails> labworkDetailsArrayList = new ArrayList<>();
-            labworkRepository.findAll(exampleFilter, pageable).forEach(it ->
+            labworkRepository.findAll(specification, pageable).forEach(it ->
                     labworkDetailsArrayList.add(new LabworkDetails(it)));
             return labworkDetailsArrayList;
         } catch (Exception ex) {

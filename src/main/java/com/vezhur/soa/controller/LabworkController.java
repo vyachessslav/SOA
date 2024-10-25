@@ -23,7 +23,7 @@ public class LabworkController {
     public ResponseEntity<List<LabworkDetails>> getAllLabworks(
             @RequestParam(required = false) String sort,
             @RequestParam(required = false) String filter,
-            @RequestParam(required = false) Integer pageNumber,
+            @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize) {
         return ResponseEntity.ok(labworkService.getAllLabworks(sort, filter, pageNumber, pageSize));
     }
