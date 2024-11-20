@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 
 @Getter
 @Setter
