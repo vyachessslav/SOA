@@ -26,24 +26,20 @@ public class LabworkService {
     @Autowired
     private LabworkRepository labworkRepository;
 
-    public List<LabworkDetails> getAllLabworks(String sort, String filter, int pageNumber, int pageSize) {
+    public List<LabworkEntity> getAllLabworks(String sort, String filter, int pageNumber, int pageSize) {
         try {
             SortingParser sortingParser = new SortingParser();
             FilterSpecification filterSpecification = new FilterSpecification();
             Sort sorting = sortingParser.parseSort(sort);
             Pageable pageable = PageRequest.of(pageNumber, pageSize, sorting);
             Specification<LabworkEntity> specification = filterSpecification.parseFilter(filter);
-
-            List<LabworkDetails> labworkDetailsArrayList = new ArrayList<>();
-            labworkRepository.findAll(specification, pageable).forEach(it ->
-                    labworkDetailsArrayList.add(new LabworkDetails(it)));
-            return labworkDetailsArrayList;
+            return labworkRepository.findAll(specification, pageable).getContent();
         } catch (Exception ex) {
             throw new BadRequestException("Лабораторные работы не найдены");
         }
     }
 
-    public LabworkDetails getLabWorkById(Integer id) {
+    public LabworkEntity getLabWorkById(Integer id) {
         Optional<LabworkEntity> labworkEntity;
         try {
             labworkEntity = labworkRepository.findById(id);
@@ -51,7 +47,7 @@ public class LabworkService {
             throw new ResourceNotFoundException("Лабораторная работа не найдена");
         }
         if (labworkEntity.isPresent()) {
-            return new LabworkDetails(labworkEntity.get());
+            return labworkEntity.get();
         }
         else {
             throw new BadRequestException("Некорректный ID лабораторной работы");

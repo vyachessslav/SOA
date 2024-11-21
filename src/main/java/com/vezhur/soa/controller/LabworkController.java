@@ -20,7 +20,7 @@ public class LabworkController {
     private LabworkService labworkService;
 
     @GetMapping
-    public ResponseEntity<List<LabworkDetails>> getAllLabworks(
+    public ResponseEntity<List<LabworkEntity>> getAllLabworks(
             @RequestParam(required = false) String sort,
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") Integer pageNumber,
@@ -34,7 +34,7 @@ public class LabworkController {
     }
 
     @GetMapping("/{labwork-id}")
-    public ResponseEntity<LabworkDetails> getLabWorkById(@PathVariable("labwork-id") Integer id) {
+    public ResponseEntity<LabworkEntity> getLabWorkById(@PathVariable("labwork-id") Integer id) {
         return ResponseEntity.ok(labworkService.getLabWorkById(id));
     }
 
