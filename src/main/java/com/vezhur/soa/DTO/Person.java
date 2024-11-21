@@ -1,5 +1,6 @@
 package com.vezhur.soa.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.util.Date;
 @Embeddable
 public class Person {
     private String name;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date birthday;
     private Integer weight;
     private Location location;
