@@ -7,6 +7,8 @@ import lombok.ToString;
 
 import jakarta.persistence.Embeddable;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @ToString
@@ -14,7 +16,7 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class Person {
     private String name;
-    private String birthday;
+    private Date birthday;
     private Integer weight;
     private Location location;
 }
